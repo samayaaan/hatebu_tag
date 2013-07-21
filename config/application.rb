@@ -58,5 +58,7 @@ module TimeyHatebu
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    #config.dependency_loading = true
   end
 end

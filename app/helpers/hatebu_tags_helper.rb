@@ -1,0 +1,2 @@
+module HatebuTagsHelper
+end

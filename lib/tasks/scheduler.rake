@@ -14,10 +14,27 @@ hatenaCategoryRssHash =
     {'it' => 'http://b.hatena.ne.jp/entrylist/it?sort=hot&threshold=3&mode=rss',
      'economics' => 'http://b.hatena.ne.jp/entrylist/economics?sort=hot&threshold=3&mode=rss'}
 
+
 namespace :timey do
-  task :hatebu_tag do
+  task :hatebu_tag => [ :environment ] do
     categoryTagHash = getHatenaCategoryTagHash(hatenaCategoryRssHash)
     puts categoryTagHash
+    categoryTagHash.to_a.each do |categoryTagArray|
+      categoryTagArray[1].each do |tag|
+        #hatebuTagHash = {"tag" => tag, "category" => categoryTagHash[0]}
+        puts 'a'
+        #HatebuTag.new(hatebuTagHash).save
+        tagModel = HatebuTag.new
+        puts 'c'
+        tagModel.category = categoryTagArray[0]
+        puts 'd'
+        tagModel.tag = tag
+        puts 'e'
+
+        tagModel.save
+      end
+    end
+
   end
 end
 
@@ -29,10 +46,11 @@ def getHatenaTag(articleUrl)
   resultTagArray = []
   openHatenaApiResp = open('http://b.hatena.ne.jp/entry/jsonlite/?url=' + CGI.escape(articleUrl)).read
   jsonHash = JSON.parser.new(openHatenaApiResp).parse()
-
-  jsonHash['bookmarks'].each do |bookmark|
-    #puts bookmark['tags']
-    resultTagArray += bookmark['tags']
+  if jsonHash['bookmarks'] != nil then
+    jsonHash['bookmarks'].each do |bookmark|
+      #puts bookmark['tags']
+      resultTagArray += bookmark['tags']
+    end
   end
 
   return resultTagArray
@@ -67,10 +85,13 @@ def getHatenaCategoryTagHash(hatenaCategoryRssHash)
 
     # 記事一覧に含まれるタグ一覧を取得
     tagArray = []
+    i = 1
     articleUrlArray.each do |articleUrl|
       tagArray += getHatenaTag(articleUrl)
-
-      break
+      if i == 3 then
+        break
+      end
+      i += 1
     end
 
     categoryTagHash[hatenaCategoryRss[0]] = tagArray

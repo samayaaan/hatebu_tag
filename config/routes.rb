@@ -2,6 +2,9 @@ TimeyHatebu::Application.routes.draw do
   resources :hatebu_tags
 
 
+  resources :hatebu_categories
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -1,0 +1,2 @@
+module HatebuCategoriesHelper
+end

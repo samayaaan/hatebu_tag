@@ -9,31 +9,24 @@ PROCESS_SIZE = 200
 PARSE_WAIT_SEC = 0.5
 
 
-# カテゴリとRSSの組み合わせhash
-hatenaCategoryRssHash =
-    {'it' => 'http://b.hatena.ne.jp/entrylist/it?sort=hot&threshold=3&mode=rss',
-     'economics' => 'http://b.hatena.ne.jp/entrylist/economics?sort=hot&threshold=3&mode=rss'}
-
-
 namespace :timey do
   task :hatebu_tag => [ :environment ] do
-    categoryTagHash = getHatenaCategoryTagHash(hatenaCategoryRssHash)
-    puts categoryTagHash
-    categoryTagHash.to_a.each do |categoryTagArray|
-      categoryTagArray[1].each do |tag|
-        #hatebuTagHash = {"tag" => tag, "category" => categoryTagHash[0]}
-        puts 'a'
-        #HatebuTag.new(hatebuTagHash).save
+    hatebuCategories = HatebuCategory.all
+    hatebuCategories.each do |hatebuCategory|
+      puts 'processing... : ' + hatebuCategory.name
+      tagArray = getHatebuTagArray(hatebuCategory)
+      puts tagArray
+
+      tagArray.each do |tag|
         tagModel = HatebuTag.new
-        puts 'c'
-        tagModel.category = categoryTagArray[0]
-        puts 'd'
-        tagModel.tag = tag
-        puts 'e'
+        tagModel.name = tag
+        tagModel.hatebu_catebory_id = hatebuCategory.id
+        tagModel.cnt = 1
 
         tagModel.save
       end
     end
+
 
   end
 end
@@ -74,30 +67,23 @@ def getHatenaArticleUrl(hatenaRssUrl)
 end
 
 
-# はてなのRSSをもとに、カテゴリとタグの対応一覧を取得
-def getHatenaCategoryTagHash(hatenaCategoryRssHash)
-  categoryTagHash = Hash::new
+# はてなのRSSをもとに、タグ一覧を取得
+def getHatebuTagArray(hatebuCategory)
 
-  hatenaCategoryRssHash.to_a.each do |hatenaCategoryRss|
-    # RSSから記事一覧取得
-    puts 'processing... : ' + hatenaCategoryRss[0]
-    articleUrlArray = getHatenaArticleUrl(hatenaCategoryRss[1])
+  # RSSから記事一覧取得
+  articleUrlArray = getHatenaArticleUrl(hatebuCategory.url)
 
-    # 記事一覧に含まれるタグ一覧を取得
-    tagArray = []
-    i = 1
-    articleUrlArray.each do |articleUrl|
-      tagArray += getHatenaTag(articleUrl)
-      if i == 3 then
-        break
-      end
-      i += 1
+  # 記事一覧に含まれるタグ一覧を取得
+  tagArray = []
+  i = 1
+  articleUrlArray.each do |articleUrl|
+    tagArray += getHatenaTag(articleUrl)
+    if i == 3 then
+      break
     end
-
-    categoryTagHash[hatenaCategoryRss[0]] = tagArray
-
+    i += 1
   end
 
-  return categoryTagHash
+  return tagArray
 end
 

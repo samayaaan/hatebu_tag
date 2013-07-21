@@ -2,8 +2,9 @@
 
 <table>
   <tr>
-    <th>Tag</th>
-    <th>Category</th>
+    <th>Name</th>
+    <th>Hatebu catebory</th>
+    <th>Cnt</th>
     <th></th>
     <th></th>
     <th></th>
@@ -11,8 +12,9 @@
 
 <% @hatebu_tags.each do |hatebu_tag| %>
   <tr>
-    <td><%= hatebu_tag.tag %></td>
-    <td><%= hatebu_tag.category %></td>
+    <td><%= hatebu_tag.name %></td>
+    <td><%= hatebu_tag.hatebu_catebory_id %></td>
+    <td><%= hatebu_tag.cnt %></td>
     <td><%= link_to 'Show', hatebu_tag %></td>
     <td><%= link_to 'Edit', edit_hatebu_tag_path(hatebu_tag) %></td>
     <td><%= link_to 'Destroy', hatebu_tag, method: :delete, data: { confirm: 'Are you sure?' } %></td>

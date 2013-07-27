@@ -1,4 +1,7 @@
 TimeyHatebu::Application.routes.draw do
+  resources :hatebu_eids
+
+
   resources :hatebu_tags
 
 

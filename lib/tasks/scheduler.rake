@@ -15,7 +15,7 @@ namespace :timey do
     hatebuCategories.each do |hatebuCategory|
       puts 'processing... : ' + hatebuCategory.name
       tagArray = getHatebuTagArray(hatebuCategory)
-      puts tagArray
+      #puts tagArray
 
       tagArray.each do |tag|
         tagModel = HatebuTag.new
@@ -26,8 +26,24 @@ namespace :timey do
         tagModel.save
       end
     end
+  end
 
+  task :hatebu_tag_csv => [ :environment ] do
 
+    file = "tag.csv"
+    fileWriteStr = ""
+    hatebuTags = HatebuTag.all
+    hatebuTags.each do |tag|
+      fileWriteStr += tag.name + "/n"
+    end
+
+    mode = "w"
+    open( file , mode ){|f| f.write(fileWriteStr)}
+
+    #file = "test.txt"
+    #str = " " + "add str"
+    #mode = "a"
+    #open( file , mode ){|f| f.write(str)}
   end
 end
 
@@ -35,11 +51,29 @@ private
 
 
 # 記事URLに含まれるタグ一覧を取得
-def getHatenaTag(articleUrl)
+def getHatenaTag(articleUrl, hatebuCategory)
   resultTagArray = []
   openHatenaApiResp = open('http://b.hatena.ne.jp/entry/jsonlite/?url=' + CGI.escape(articleUrl)).read
   jsonHash = JSON.parser.new(openHatenaApiResp).parse()
   if jsonHash['bookmarks'] != nil then
+    # すでに取得済みのエントリーであればtagを取得しない
+    hatebuEids = HatebuEid.where(:eid => jsonHash['eid'])
+    puts "length"
+    puts hatebuEids.length
+    puts "size"
+    puts hatebuEids.size
+
+    if(hatebuEids.length > 0)
+      return []
+    end
+
+    # 未取得のエントリーなのでeidを登録
+    hatebuEid = HatebuEid.new
+    hatebuEid.eid = jsonHash['eid']
+    hatebuEid.hatebu_category_id = hatebuCategory.id
+    hatebuEid.save
+
+    # tagの配列生成
     jsonHash['bookmarks'].each do |bookmark|
       #puts bookmark['tags']
       resultTagArray += bookmark['tags']
@@ -77,7 +111,7 @@ def getHatebuTagArray(hatebuCategory)
   tagArray = []
   i = 1
   articleUrlArray.each do |articleUrl|
-    tagArray += getHatenaTag(articleUrl)
+    tagArray += getHatenaTag(articleUrl, hatebuCategory)
     if i == 3 then
       break
     end

@@ -3,20 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="19af97d1-6fc9-47ba-a8a0-9609e4145a04" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/hatebu_category.rb" afterPath="$PROJECT_DIR$/app/models/hatebu_category.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/hatebu_tag.rb" afterPath="$PROJECT_DIR$/app/models/hatebu_tag.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/hatebu_categories/_form.html.erb" afterPath="$PROJECT_DIR$/app/views/hatebu_categories/_form.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/hatebu_categories/index.html.erb" afterPath="$PROJECT_DIR$/app/views/hatebu_categories/index.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/hatebu_categories/show.html.erb" afterPath="$PROJECT_DIR$/app/views/hatebu_categories/show.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/hatebu_tags/_form.html.erb" afterPath="$PROJECT_DIR$/app/views/hatebu_tags/_form.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/hatebu_tags/index.html.erb" afterPath="$PROJECT_DIR$/app/views/hatebu_tags/index.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/hatebu_tags/show.html.erb" afterPath="$PROJECT_DIR$/app/views/hatebu_tags/show.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/schema.rb" afterPath="$PROJECT_DIR$/db/schema.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tasks/scheduler.rake" afterPath="$PROJECT_DIR$/lib/tasks/scheduler.rake" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/fixtures/hatebu_categories.yml" afterPath="$PROJECT_DIR$/test/fixtures/hatebu_categories.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/fixtures/hatebu_tags.yml" afterPath="$PROJECT_DIR$/test/fixtures/hatebu_tags.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/functional/hatebu_categories_controller_test.rb" afterPath="$PROJECT_DIR$/test/functional/hatebu_categories_controller_test.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/functional/hatebu_tags_controller_test.rb" afterPath="$PROJECT_DIR$/test/functional/hatebu_tags_controller_test.rb" />
     </list>
     <ignored path="timey-hatebu.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -47,7 +34,16 @@
       <file leaf-file-name="scheduler.rake" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/tasks/scheduler.rake">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="30" column="35" selection-start="830" selection-end="830" vertical-scroll-proportion="0.50970876">
+            <state line="55" column="44" selection-start="1413" selection-end="1413" vertical-scroll-proportion="0.38187703">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="hatebu_tag.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/models/hatebu_tag.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="6" selection-start="6" selection-end="6" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -672,13 +668,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/hatebu_tag.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="6" selection-start="6" selection-end="6" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/bundle/ruby/1.9.1/gems/activerecord-3.2.11/lib/active_record/querying.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="8" column="4" selection-start="434" selection-end="434" vertical-scroll-proportion="-0.23966943">
@@ -686,9 +675,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/hatebu_tag.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="6" selection-start="6" selection-end="6" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/lib/tasks/scheduler.rake">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="35" selection-start="830" selection-end="830" vertical-scroll-proportion="0.50970876">
+        <state line="55" column="44" selection-start="1413" selection-end="1413" vertical-scroll-proportion="0.38187703">
           <folding />
         </state>
       </provider>

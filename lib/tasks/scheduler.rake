@@ -52,8 +52,8 @@ namespace :timey do
     file = "tag.csv"
     fileWriteStr = ""
     hatebuTags = HatebuTag.all
-    hatebuTags.each do |tag|
-      fileWriteStr += tag.name + "/n"
+    hatebuTags.each do |tagModel|
+      fileWriteStr += tagModel.tag_name + "\n"
     end
 
     mode = "w"

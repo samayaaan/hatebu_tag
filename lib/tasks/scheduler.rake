@@ -13,17 +13,36 @@ namespace :timey do
   task :hatebu_tag => [ :environment ] do
     hatebuCategories = HatebuCategory.all
     hatebuCategories.each do |hatebuCategory|
-      puts 'processing... : ' + hatebuCategory.name
+      puts 'processing... : ' + hatebuCategory.category_name
       tagArray = getHatebuTagArray(hatebuCategory)
       #puts tagArray
 
       tagArray.each do |tag|
-        tagModel = HatebuTag.new
-        tagModel.name = tag
-        tagModel.hatebu_catebory_id = hatebuCategory.id
-        tagModel.cnt = 1
+        hatebuTags = HatebuTag.where(:tag_name => tag).limit(1)
 
-        tagModel.save
+        if(hatebuTags.size > 0)
+          # すでに取得済みのtagならcnt+1してupdate
+
+          ## TODO tagModelの中身がうまく取得できない
+          #puts hatebuTags.cnt
+          #tagCnt = hatebuTags.cnt
+
+          hatebuTags.each do |tagModel|
+            #puts tagModel.tag_name
+            tagModel.update_attributes({:cnt => tagModel.cnt + 1})
+            # １件しかとれない想定
+            break
+          end
+        else
+          # 新規取得ならcnt=1でsave
+          tagModel = HatebuTag.new
+          tagModel.tag_name = tag
+          tagModel.hatebu_catebory_id = hatebuCategory.id
+          tagModel.cnt = 1
+
+          tagModel.save
+        end
+
       end
     end
   end
@@ -57,12 +76,7 @@ def getHatenaTag(articleUrl, hatebuCategory)
   jsonHash = JSON.parser.new(openHatenaApiResp).parse()
   if jsonHash['bookmarks'] != nil then
     # すでに取得済みのエントリーであればtagを取得しない
-    hatebuEids = HatebuEid.where(:eid => jsonHash['eid'])
-    puts "length"
-    puts hatebuEids.length
-    puts "size"
-    puts hatebuEids.size
-
+    hatebuEids = HatebuEid.where(:eid => jsonHash['eid']).limit(1)
     if(hatebuEids.length > 0)
       return []
     end
@@ -109,13 +123,8 @@ def getHatebuTagArray(hatebuCategory)
 
   # 記事一覧に含まれるタグ一覧を取得
   tagArray = []
-  i = 1
   articleUrlArray.each do |articleUrl|
     tagArray += getHatenaTag(articleUrl, hatebuCategory)
-    if i == 3 then
-      break
-    end
-    i += 1
   end
 
   return tagArray

@@ -2,7 +2,7 @@
 
 <table>
   <tr>
-    <th>Name</th>
+    <th>Category name</th>
     <th>Url</th>
     <th></th>
     <th></th>
@@ -11,7 +11,7 @@
 
 <% @hatebu_categories.each do |hatebu_category| %>
   <tr>
-    <td><%= hatebu_category.name %></td>
+    <td><%= hatebu_category.category_name %></td>
     <td><%= hatebu_category.url %></td>
     <td><%= link_to 'Show', hatebu_category %></td>
     <td><%= link_to 'Edit', edit_hatebu_category_path(hatebu_category) %></td>

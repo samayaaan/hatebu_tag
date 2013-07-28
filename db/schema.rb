@@ -11,13 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130727125126) do
+ActiveRecord::Schema.define(:version => 20130727142029) do
 
   create_table "hatebu_categories", :force => true do |t|
-    t.string   "name"
+    t.string   "category_name"
     t.string   "url"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "hatebu_eids", :force => true do |t|
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(:version => 20130727125126) do
   end
 
   create_table "hatebu_tags", :force => true do |t|
-    t.string   "name"
+    t.string   "tag_name"
     t.integer  "hatebu_catebory_id"
     t.integer  "cnt"
     t.datetime "created_at",         :null => false

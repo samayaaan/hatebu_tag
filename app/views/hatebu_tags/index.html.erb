@@ -2,7 +2,7 @@
 
 <table>
   <tr>
-    <th>Name</th>
+    <th>Tag name</th>
     <th>Hatebu catebory</th>
     <th>Cnt</th>
     <th></th>
@@ -12,7 +12,7 @@
 
 <% @hatebu_tags.each do |hatebu_tag| %>
   <tr>
-    <td><%= hatebu_tag.name %></td>
+    <td><%= hatebu_tag.tag_name %></td>
     <td><%= hatebu_tag.hatebu_catebory_id %></td>
     <td><%= hatebu_tag.cnt %></td>
     <td><%= link_to 'Show', hatebu_tag %></td>

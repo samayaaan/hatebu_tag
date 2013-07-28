@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  name: MyString
+  tag_name: MyString
   hatebu_catebory_id: 1
   cnt: 1
 
 two:
-  name: MyString
+  tag_name: MyString
   hatebu_catebory_id: 1
   cnt: 1

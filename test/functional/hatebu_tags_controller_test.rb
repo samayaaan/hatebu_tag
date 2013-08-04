@@ -18,7 +18,7 @@ class HatebuTagsControllerTest < ActionController::TestCase
 
   test "should create hatebu_tag" do
     assert_difference('HatebuTag.count') do
-      post :create, hatebu_tag: { cnt: @hatebu_tag.cnt, hatebu_catebory_id: @hatebu_tag.hatebu_catebory_id, tag_name: @hatebu_tag.tag_name }
+      post :create, hatebu_tag: { cnt: @hatebu_tag.cnt, hatebu_category_id: @hatebu_tag.hatebu_category_id, tag_name: @hatebu_tag.tag_name }
     end
 
     assert_redirected_to hatebu_tag_path(assigns(:hatebu_tag))
@@ -35,7 +35,7 @@ class HatebuTagsControllerTest < ActionController::TestCase
   end
 
   test "should update hatebu_tag" do
-    put :update, id: @hatebu_tag, hatebu_tag: { cnt: @hatebu_tag.cnt, hatebu_catebory_id: @hatebu_tag.hatebu_catebory_id, tag_name: @hatebu_tag.tag_name }
+    put :update, id: @hatebu_tag, hatebu_tag: { cnt: @hatebu_tag.cnt, hatebu_category_id: @hatebu_tag.hatebu_category_id, tag_name: @hatebu_tag.tag_name }
     assert_redirected_to hatebu_tag_path(assigns(:hatebu_tag))
   end
 

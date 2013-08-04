@@ -1,3 +1,3 @@
 class HatebuTag < ActiveRecord::Base
-  attr_accessible :cnt, :hatebu_catebory_id, :tag_name
+  attr_accessible :cnt, :hatebu_category_id, :tag_name
 end

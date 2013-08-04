@@ -2,10 +2,10 @@
 
 one:
   tag_name: MyString
-  hatebu_catebory_id: 1
+  hatebu_category_id: 1
   cnt: 1
 
 two:
   tag_name: MyString
-  hatebu_catebory_id: 1
+  hatebu_category_id: 1
   cnt: 1

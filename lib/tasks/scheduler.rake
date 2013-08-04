@@ -18,9 +18,9 @@ namespace :timey do
       #puts tagArray
 
       tagArray.each do |tag|
-        hatebuTags = HatebuTag.where(:tag_name => tag).limit(1)
+        hatebuTags = HatebuTag.where(:tag_name => tag, :hatebu_category_id => hatebuCategory.id).limit(1)
 
-        if(hatebuTags.size > 0)
+        if hatebuTags.size > 0 then
           # すでに取得済みのtagならcnt+1してupdate
 
           ## TODO tagModelの中身がうまく取得できない
@@ -37,7 +37,7 @@ namespace :timey do
           # 新規取得ならcnt=1でsave
           tagModel = HatebuTag.new
           tagModel.tag_name = tag
-          tagModel.hatebu_catebory_id = hatebuCategory.id
+          tagModel.hatebu_category_id = hatebuCategory.id
           tagModel.cnt = 1
 
           tagModel.save
@@ -51,9 +51,13 @@ namespace :timey do
 
     file = "tag.csv"
     fileWriteStr = ""
+    execTagHash = {}
     hatebuTags = HatebuTag.all
     hatebuTags.each do |tagModel|
-      fileWriteStr += tagModel.tag_name + "\n"
+      if !execTagHash.has_key?(tagModel.tag_name) then
+        fileWriteStr += tagModel.tag_name + "\n"
+        execTagHash.store(tagModel.tag_name, 1)
+      end
     end
 
     mode = "w"
@@ -72,27 +76,33 @@ private
 # 記事URLに含まれるタグ一覧を取得
 def getHatenaTag(articleUrl, hatebuCategory)
   resultTagArray = []
-  openHatenaApiResp = open('http://b.hatena.ne.jp/entry/jsonlite/?url=' + CGI.escape(articleUrl)).read
-  jsonHash = JSON.parser.new(openHatenaApiResp).parse()
-  if jsonHash['bookmarks'] != nil then
-    # すでに取得済みのエントリーであればtagを取得しない
-    hatebuEids = HatebuEid.where(:eid => jsonHash['eid']).limit(1)
-    if(hatebuEids.length > 0)
-      return []
-    end
 
-    # 未取得のエントリーなのでeidを登録
-    hatebuEid = HatebuEid.new
-    hatebuEid.eid = jsonHash['eid']
-    hatebuEid.hatebu_category_id = hatebuCategory.id
-    hatebuEid.save
+  begin
+    openHatenaApiResp = open('http://b.hatena.ne.jp/entry/jsonlite/?url=' + CGI.escape(articleUrl)).read
+    jsonHash = JSON.parser.new(openHatenaApiResp).parse()
+    if jsonHash['bookmarks'] != nil then
+      # すでに取得済みのエントリーであればtagを取得しない
+      hatebuEids = HatebuEid.where(:eid => jsonHash['eid']).limit(1)
+      if(hatebuEids.length > 0)
+        return []
+      end
 
-    # tagの配列生成
-    jsonHash['bookmarks'].each do |bookmark|
-      #puts bookmark['tags']
-      resultTagArray += bookmark['tags']
+      # 未取得のエントリーなのでeidを登録
+      hatebuEid = HatebuEid.new
+      hatebuEid.eid = jsonHash['eid']
+      hatebuEid.hatebu_category_id = hatebuCategory.id
+      hatebuEid.save
+
+      # tagの配列生成
+      jsonHash['bookmarks'].each do |bookmark|
+        #puts bookmark['tags']
+        resultTagArray += bookmark['tags']
+      end
     end
+  rescue
+    puts "記事情報取得APIエラーのためこのURLはスルーします：" + 'http://b.hatena.ne.jp/entry/jsonlite/?url=' + CGI.escape(articleUrl)
   end
+
 
   return resultTagArray
 end
@@ -102,13 +112,19 @@ end
 ## xml parse
 # はてなのRSSから記事URLを取得
 def getHatenaArticleUrl(hatenaRssUrl)
-  openRssResp = open(hatenaRssUrl).read
-  doc = REXML::Document.new(openRssResp)
-
   articleUrlArray = []
-  doc.elements.each('rdf:RDF/item') do |element|
-    #puts element.attributes['rdf:about']
-    articleUrlArray.push(element.attributes['rdf:about'])
+  begin
+    openRssResp = open(hatenaRssUrl).read
+
+    doc = REXML::Document.new(openRssResp)
+
+    doc.elements.each('rdf:RDF/item') do |element|
+      #puts element.attributes['rdf:about']
+      articleUrlArray.push(element.attributes['rdf:about'])
+    end
+
+  rescue
+    puts "rss読み込みエラーのためこのURLはスルーします：" + hatenaRssUrl
   end
 
   return articleUrlArray

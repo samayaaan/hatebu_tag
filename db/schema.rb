@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130727142029) do
+ActiveRecord::Schema.define(:version => 20130804142020) do
 
   create_table "hatebu_categories", :force => true do |t|
     t.string   "category_name"
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(:version => 20130727142029) do
 
   create_table "hatebu_tags", :force => true do |t|
     t.string   "tag_name"
-    t.integer  "hatebu_catebory_id"
+    t.integer  "hatebu_category_id"
     t.integer  "cnt"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false

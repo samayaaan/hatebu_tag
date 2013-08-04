@@ -3,7 +3,7 @@
 <table>
   <tr>
     <th>Tag name</th>
-    <th>Hatebu catebory</th>
+    <th>Hatebu category</th>
     <th>Cnt</th>
     <th></th>
     <th></th>
@@ -13,7 +13,7 @@
 <% @hatebu_tags.each do |hatebu_tag| %>
   <tr>
     <td><%= hatebu_tag.tag_name %></td>
-    <td><%= hatebu_tag.hatebu_catebory_id %></td>
+    <td><%= hatebu_tag.hatebu_category_id %></td>
     <td><%= hatebu_tag.cnt %></td>
     <td><%= link_to 'Show', hatebu_tag %></td>
     <td><%= link_to 'Edit', edit_hatebu_tag_path(hatebu_tag) %></td>

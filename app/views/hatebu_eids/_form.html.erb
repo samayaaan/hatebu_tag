@@ -1,0 +1,25 @@
+<%= form_for(@hatebu_eid) do |f| %>
+  <% if @hatebu_eid.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@hatebu_eid.errors.count, "error") %> prohibited this hatebu_eid from being saved:</h2>
+
+      <ul>
+      <% @hatebu_eid.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :eid %><br />
+    <%= f.number_field :eid %>
+  </div>
+  <div class="field">
+    <%= f.label :hatebu_category_id %><br />
+    <%= f.number_field :hatebu_category_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

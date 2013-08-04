@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  eid: 1
+  hatebu_category_id: 1
+
+two:
+  eid: 1
+  hatebu_category_id: 1

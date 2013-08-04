@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Eid:</b>
+  <%= @hatebu_eid.eid %>
+</p>
+
+<p>
+  <b>Hatebu category:</b>
+  <%= @hatebu_eid.hatebu_category_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_hatebu_eid_path(@hatebu_eid) %> |
+<%= link_to 'Back', hatebu_eids_path %>
